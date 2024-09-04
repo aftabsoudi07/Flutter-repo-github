@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "e6520475-51c0-4ee9-b72d-9836d7f73b87",
+		"name": "Flutter Task Collection",
+		"description": "As a Flutter Developer, we will able to make mobile applications with backend integration to our rest API. Once created, we want them deployed on the Android Play Store and Apple App Store.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37659300"
+	},
+	"item": [
+		{
+			"name": "SplashScreen- Device Info",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"deviceType\": \"andriod\",\r\n    \"deviceId\": \"C6179909526098\",\r\n    \"deviceName\": \"Samsung-MT200\",\r\n    \"deviceOSVersion\": \"2.3.6\",\r\n    \"deviceIPAddress\": \"11.433.445.66\",\r\n    \"lat\": 9.9312,\r\n    \"long\": 76.2673,\r\n    \"buyer_gcmid\": \"\",\r\n    \"buyer_pemid\": \"\",\r\n    \"app\": {\r\n        \"version\": \"1.20.5\",\r\n        \"installTimeStamp\": \"2022-02-10T12:33:30.696Z\",\r\n        \"uninstallTimeStamp\": \"2022-02-10T12:33:30.696Z\",\r\n        \"downloadTimeStamp\": \"2022-02-10T12:33:30.696Z\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://devapiv4.dealsdray.com/api/v2/user/device/add",
+					"protocol": "http",
+					"host": [
+						"devapiv4",
+						"dealsdray",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"user",
+						"device",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Screen- Otp and Resend",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"mobileNumber\":\"9011470243\",\r\n    \"deviceId\":\"62b341aeb0ab5ebe28a758a3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://devapiv4.dealsdray.com/api/v2/user/otp",
+					"protocol": "http",
+					"host": [
+						"devapiv4",
+						"dealsdray",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"user",
+						"otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Otp Screen- Otp verfication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"otp\":\"9879\",\r\n    \"deviceId\":\"62b43472c84bb6dac82e0504\",\r\n    \"userId\":\"62b43547c84bb6dac82e0525\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://devapiv4.dealsdray.com/api/v2/user/otp/verification",
+					"protocol": "http",
+					"host": [
+						"devapiv4",
+						"dealsdray",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"user",
+						"otp",
+						"verification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Screen- Email with referral",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"muhammedrafnasvk@gmail.com\",\r\n    \"password\":\"1234Rafnas\",\r\n    \"referralCode\":12345678,\r\n    \"userId\":\"62a833766ec5dafd6780fc85\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://devapiv4.dealsdray.com/api/v2/user/email/referral",
+					"protocol": "http",
+					"host": [
+						"devapiv4",
+						"dealsdray",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"user",
+						"email",
+						"referral"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Home Screen - fetch products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Updated response time test to 300ms\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check if Content-Type header is application/json\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"// Response time is less than 300ms\r",
+							"pm.test(\"Response time is less than 300ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							"// Validate the structure of the data object and its nested fields\r",
+							"pm.test(\"Data object and its nested fields structure is valid\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('object');\r",
+							"    pm.expect(responseData.data.banner_one).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.category).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.products).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.banner_two).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.new_arrivals).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.banner_three).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.categories_listing).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.top_brands).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.brand_listing).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.top_selling_products).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.featured_laptop).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.upcoming_laptops).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.unboxed_deals).to.exist.and.to.be.an('array');\r",
+							"    pm.expect(responseData.data.my_browsing_history).to.exist.and.to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"// Check if data arrays contain at least one non-empty element\r",
+							"pm.test(\"Data arrays contain at least one non-empty element\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    \r",
+							"    Object.keys(responseData.data).forEach(key => {\r",
+							"        responseData.data[key].forEach(item => {\r",
+							"            pm.expect(item).to.be.an('object');\r",
+							"            pm.expect(Object.values(item)).to.have.lengthOf.at.least(1, \"Array should contain at least one non-empty element\");\r",
+							"        });\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Define the base URL for the API\r",
+							"const baseURL = \"http://devapiv4.dealsdray.com/\";\r",
+							"\r",
+							"// Set environment variables or request data dynamically\r",
+							"pm.environment.set(\"baseURL\", baseURL);\r",
+							"\r",
+							"// Prepare a dynamic request body (example for POST request)\r",
+							"const requestBody = {\r",
+							"    \"status\": 1,\r",
+							"    \"data\": {\r",
+							"        \"banner_one\": [\r",
+							"            { \"banner\": `${baseURL}icons/banner.png` },\r",
+							"            { \"banner\": `${baseURL}icons/banner.png` }\r",
+							"        ],\r",
+							"        \"category\": [\r",
+							"            { \"label\": \"Mobile\", \"icon\": `${baseURL}icons/cat_mobile.png` },\r",
+							"            { \"label\": \"Laptop\", \"icon\": `${baseURL}icons/cat_lap.png` },\r",
+							"            { \"label\": \"Camera\", \"icon\": `${baseURL}icons/cat_camera.png` },\r",
+							"            { \"label\": \"LED\", \"icon\": `${baseURL}icons/cat_led.png` }\r",
+							"        ],\r",
+							"        // Add other fields as needed...\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"// Convert the requestBody object to a JSON string\r",
+							"const requestBodyString = JSON.stringify(requestBody);\r",
+							"\r",
+							"// Set the request body\r",
+							"pm.request.body.update(requestBodyString);\r",
+							"\r",
+							"// Optionally, log the request body to the console (for debugging)\r",
+							"console.log(\"Request Body:\", requestBodyString);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": 1,\r\n    \"data\": {\r\n        \"banner_one\": [\r\n            {\r\n                \"banner\": \"http://devapiv4.dealsdray.com/icons/banner.png\"\r\n            },\r\n            {\r\n                \"banner\": \"http://devapiv4.dealsdray.com/icons/banner.png\"\r\n            }\r\n        ],\r\n        \"category\": [\r\n            {\r\n                \"label\": \"Mobile\",\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/cat_mobile.png\"\r\n            },\r\n            {\r\n                \"label\": \"Laptop\",\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/cat_lap.png\"\r\n            },\r\n            {\r\n                \"label\": \"Camera\",\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/cat_camera.png\"\r\n            },\r\n            {\r\n                \"label\": \"LED\",\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/cat_led.png\"\r\n            }\r\n        ],\r\n        \"products\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -75.png\",\r\n                \"offer\": \"36%\",\r\n                \"label\": \"FINICKY-WORLD V380\",\r\n                \"SubLabel\": \"Wireless HD IP Security\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -79.png\",\r\n                \"offer\": \"32%\",\r\n                \"label\": \"MI LED TV 4A PRO 108 CM\",\r\n                \"Sublabel\": \"(43) Full HD Android TV\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -76.png\",\r\n                \"offer\": \"12%\",\r\n                \"label\": \"HP 245 7th GEN AMD\",\r\n                \"Sublabel\": \"(4GB/1TB/DOS)G6\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -80.png\",\r\n                \"offer\": \"45%\",\r\n                \"label\": \"MI Redmi 5 (Blue,4GB)\",\r\n                \"Sublabel\": \"RAM,64GB Storage\"\r\n            }\r\n        ],\r\n        \"banner_two\": [\r\n            {\r\n                \"banner\": \"http://devapiv4.dealsdray.com/icons/discount_banner.png\"\r\n            }\r\n        ],\r\n        \"new_arrivals\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 4.png\",\r\n                \"offer\": \"21%\",\r\n                \"brandIcon\": \"http://devapiv4.dealsdray.com/icons/Image -107.png\",\r\n                \"label\": \"Realme 2 Pro(Black,Sea,64 GB)\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -41.png\",\r\n                \"offer\": \"21%\",\r\n                \"brandIcon\": \"http://devapiv4.dealsdray.com/icons/Image -107.png\",\r\n                \"label\": \"Realme 3i (Diamond Red,64 GB) (4 GB...)\"\r\n            }\r\n        ],\r\n        \"banner_three\": [\r\n            {\r\n                \"banner\": \"http://devapiv4.dealsdray.com/icons/Image -97.png\"\r\n            },\r\n            {\r\n                \"banner\": \"http://devapiv4.dealsdray.com/icons/Image -99.png\"\r\n            }\r\n        ],\r\n        \"categories_listing\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -70.png\",\r\n                \"offer\": \"32%\",\r\n                \"label\": \"Nokia 8.1(iron,64 GB)\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 7.png\",\r\n                \"offer\": \"14%\",\r\n                \"label\": \"Redmin Note 7s (Sapphire Blue 64 GB)\"\r\n            }\r\n        ],\r\n        \"top_brands\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/brand_bg.png\"\r\n            }\r\n        ],\r\n        \"brand_listing\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 4.png\",\r\n                \"offer\": \"21%\",\r\n                \"brandIcon\": \"http://devapiv4.dealsdray.com/icons/Image -107.png\",\r\n                \"label\": \"Realme 2 Pro(Black,Sea,64 GB)\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -41.png\",\r\n                \"offer\": \"21%\",\r\n                \"brandIcon\": \"http://devapiv4.dealsdray.com/icons/Image -107.png\",\r\n                \"label\": \"Realme 3i (Diamond Red,64 GB) (4 GB...)\"\r\n            }\r\n        ],\r\n        \"top_selling_products\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 26.png\",\r\n                \"label\": \"Moniters\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 27.png\",\r\n                \"label\": \"Printers\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 28.png\",\r\n                \"label\": \"Cameras\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 29.png\",\r\n                \"label\": \"LED Bulb\"\r\n            }\r\n        ],\r\n        \"featured_laptop\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -133.png\",\r\n                \"brandIcon\": \"http://devapiv4.dealsdray.com/icons/Image -132.png\",\r\n                \"label\": \"Apple MacBook Air Core i5th Gen - (8 GB/128 GB SSD/Mac OS...)\",\r\n                \"price\": \"284,999\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 23.png\",\r\n                \"brandIcon\": \"http://devapiv4.dealsdray.com/icons/Image -33.png\",\r\n                \"label\": \"HP 14G APU Dual Core A6 -(4 GB/256 GB SSD/WINDOWS 10)...\",\r\n                \"price\": \"284,999\"\r\n            }\r\n        ],\r\n        \"upcoming_laptops\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/great_deals.png\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -124.png\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -125.png\"\r\n            }\r\n        ],\r\n        \"unboxed_deals\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -70.png\",\r\n                \"offer\": \"32%\",\r\n                \"label\": \"Nokia 8.1(iron,64 GB)\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 7.png\",\r\n                \"offer\": \"14%\",\r\n                \"label\": \"Redmin Note 7s (Sapphire Blue 64 GB)\"\r\n            }\r\n        ],\r\n        \"my_browsing_history\": [\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image 4.png\",\r\n                \"offer\": \"21%\",\r\n                \"brandIcon\": \"http://devapiv4.dealsdray.com/icons/Image -107.png\",\r\n                \"label\": \"Realme 2 Pro(Black,Sea,64 GB)\"\r\n            },\r\n            {\r\n                \"icon\": \"http://devapiv4.dealsdray.com/icons/Image -41.png\",\r\n                \"offer\": \"21%\",\r\n                \"brandIcon\": \"http://devapiv4.dealsdray.com/icons/Image -107.png\",\r\n                \"label\": \"Realme 3i (Diamond Red,64 GB) (4 GB...)\"\r\n            }\r\n        ]\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://devapiv4.dealsdray.com/api/v2/user/home/withoutPrice",
+					"protocol": "http",
+					"host": [
+						"devapiv4",
+						"dealsdray",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"user",
+						"home",
+						"withoutPrice"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
